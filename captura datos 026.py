@@ -113,11 +113,12 @@ if st.sidebar.button("Generar Archivo"):
             archivo_salida = f"calculos_consolidados_{mes}_{año}.xlsx"
             df_consolidado.to_excel(archivo_salida, index=False)
             st.success(f"Archivo generado exitosamente: {archivo_salida}")
-            st.download_button(
-                label="Descargar Archivo",
-                data=open(archivo_salida, "rb").read(),
-                file_name=archivo_salida,
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            )
+            with open(archivo_salida, "rb") as file:
+                st.download_button(
+                    label="Descargar Archivo",
+                    data=file,
+                    file_name=archivo_salida,
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
         else:
             st.warning("No se encontraron datos válidos para consolidar.")
